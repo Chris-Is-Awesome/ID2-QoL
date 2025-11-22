@@ -141,7 +141,9 @@ internal class QoLMod
 
 			if (kvp.Key == HUDType.Items)
 			{
-				overlayParent ??= Camera.main.GetComponentInParent<EntityHUD>().transform.Find("OverlayCamera");
+				if (overlayParent == null)
+					overlayParent = Camera.main.GetComponentInParent<EntityHUD>().transform.Find("OverlayCamera");
+
 				List<OverlayWindow> overlays = overlayParent.GetComponentsInChildren<OverlayWindow>(true).ToList();
 				GameObject meleeIcon = overlays.Find(o => o.name == "MeleeIcon").transform.parent.gameObject;
 				GameObject forceWandIcon = overlays.Find(o => o.name == "ForceWandIcon").transform.parent.gameObject;
