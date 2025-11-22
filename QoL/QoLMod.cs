@@ -137,6 +137,10 @@ internal class QoLMod
 	{
 		foreach (var kvp in hudAnchors)
 		{
+			// Skip objects that don't exist yet (such as signs)
+			if (kvp.Value == null)
+				continue;
+
 			bool active = ActiveHUDElements.Contains(kvp.Key);
 
 			if (kvp.Key == HUDType.Items)
