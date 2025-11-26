@@ -12,6 +12,10 @@
 	</PropertyGroup>
 
 	<Import Project="config.targets" Condition="Exists('config.targets')" />
+
+	<ItemGroup>
+		<PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3" PrivateAssets="all" />
+	</ItemGroup>
 	
 	<!-- Custom properties-->
 	<PropertyGroup>
@@ -21,20 +25,24 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" PrivateAssets="all" />
-		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
-		<PackageReference Include="BepInEx.Core" Version="5.*" />
-		<PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-		<PackageReference Include="UnityEngine.Modules" Version="5.6.7" IncludeAssets="compile" />
-	</ItemGroup>
-
-	<ItemGroup>
+		<Reference Include="BepInEx">
+			<HintPath>$(PluginsPath)\..\core\BepInEx.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="0Harmony">
+			<HintPath>$(PluginsPath)\..\core\0Harmony.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
 		<Reference Include="Assembly-CSharp" Publicize="true">
 			<HintPath>$(ManagedDir)\Assembly-CSharp.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="Assembly-CSharp-firstpass" Publicize="true">
 			<HintPath>$(ManagedDir)\Assembly-CSharp-firstpass.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>$(ManagedDir)\UnityEngine.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="UnityEngine.UI">
@@ -49,11 +57,7 @@
 
 	<Target Name="LoadChecks" BeforeTargets="PrepareForBuild">
 		<!-- Warn if GameInstallPath is not defined -->
-		<Error
-			Condition="'$(GameInstallPath)' == '' Or !Exists('$(GameInstallPath)')"
-			Text="GameInstallPath not found or specified. Please define GameInstallPath in the config.targets file."
-			File="$(ProjectDir)config.targets"
-		/>
+		<Error Condition="'$(GameInstallPath)' == '' Or !Exists('$(GameInstallPath)')" Text="GameInstallPath not found or specified. Please define GameInstallPath in the config.targets file." File="$(ProjectDir)config.targets" />
 	</Target>
 
 	<Target Name="PreBuildChecks" BeforeTargets="PreBuildEvent">
@@ -80,6 +84,6 @@
 	</Target>
 
 	<ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
 	</ItemGroup>
 </Project>
