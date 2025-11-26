@@ -14,6 +14,7 @@
 	<Import Project="config.targets" Condition="Exists('config.targets')" />
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
 		<PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3" PrivateAssets="all" />
 	</ItemGroup>
 	
@@ -33,12 +34,8 @@
 			<HintPath>$(PluginsPath)\..\core\0Harmony.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
-		<Reference Include="Assembly-CSharp" Publicize="true">
-			<HintPath>$(ManagedDir)\Assembly-CSharp.dll</HintPath>
-			<Private>false</Private>
-		</Reference>
-		<Reference Include="Assembly-CSharp-firstpass" Publicize="true">
-			<HintPath>$(ManagedDir)\Assembly-CSharp-firstpass.dll</HintPath>
+		<Reference Include="ModCore">
+			<HintPath>$(PluginsPath)\ModCore\ModCore.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="UnityEngine">
@@ -49,8 +46,8 @@
 			<HintPath>$(ManagedDir)\UnityEngine.UI.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
-		<Reference Include="ModCore">
-			<HintPath>$(PluginsPath)\ModCore\ModCore.dll</HintPath>
+		<Reference Include="Assembly-CSharp" Publicize="true">
+			<HintPath>$(ManagedDir)\Assembly-CSharp.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 	</ItemGroup>
@@ -82,8 +79,4 @@
 		</GetFileHash>
 		<WriteLinesToFile File="$(ExportDir)\SHA.txt" Lines="@(FilesWithHashes->'%(FileHash)')" Overwrite="true" Encoding="UTF-8" />
 	</Target>
-
-	<ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
-	</ItemGroup>
 </Project>
