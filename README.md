@@ -24,6 +24,7 @@ You can toggle specific parts of the HUD on/off.
     - Unzip the BepInEx folder into the root of your game's installation directory (i.e. there should be a `BepInEx` folder in the same folder as `ID2.exe`).
 1. Run the game once to generate the BepInEx plugins folder, then quit before performing the next step.
 1. Download `QoL.zip` included in the [latest release](https://github.com/Chris-Is-Awesome/ID2-QoL/releases/latest). Extract the downloaded zip to your BepInEx plugins folder (`BepInEx\plugins`).
+1. Repeat the prior step for each of the dependencies listed below.
 
 ## Dependencies
 
