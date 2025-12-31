@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ID2.QoL;
 
-[BepInPlugin("id2.QoL", "QoL", "1.0.0")]
+[BepInPlugin(PluginInfo.guid, PluginInfo.name, PluginInfo.version)]
 public class Plugin : BaseUnityPlugin
 {
 	internal static new ManualLogSource Logger;
@@ -20,20 +20,21 @@ public class Plugin : BaseUnityPlugin
 		instance = this;
 		Logger = base.Logger;
 
-		Logger.LogInfo($"Plugin QoL (id2.QoL) is loaded!");
-
 		try
 		{
 			// Mod initialization code here
 			new Options();
 
-			var harmony = new Harmony("id2.QoL");
+			Harmony harmony = new(PluginInfo.name);
 			harmony.PatchAll();
 		}
-		catch (System.Exception err)
+		catch (System.Exception ex)
 		{
-			Logger.LogError(err);
+			QoL.Logger.LogError($"Unhandled exception during initialization: {ex.Message}");
+			return;
 		}
+
+		Logger.LogInfo($"Initialized [{PluginInfo.name} {PluginInfo.version}]");
 	}
 
 	private void Start()
