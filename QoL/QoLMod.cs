@@ -90,7 +90,7 @@ internal class QoLMod
 
 	public static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (Globals.Player == null)
+		if (Globals.Player == null || Preloader.IsPreloading)
 			return;
 
 		UpdateHUDShown();
